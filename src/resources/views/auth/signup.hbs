@@ -45,10 +45,8 @@
                         </div>
                     </div>
                     <div class="auth-form__controls">
-                        <button class="btn btn--normal auth-form__controls--back">
-                            <a href="/" style="color: black;text-decoration: none">Trở lại</a>
-                        </button>
-                        <button class="btn btn--primary hover">Đăng nhập</button>
+                        <button id="goBack" class="btn btn--normal auth-form__controls--back" type="submit">Trở lại</button>
+                        <button class="btn btn--primary hover" type="submit">Đăng nhập</button>
                     </div>
                 </div>
 
@@ -71,3 +69,10 @@
     </div>
 </body>
 </html>
+
+<script>
+    let goback = document.getElementById("goBack");
+    goback.addEventListener("submit", function(e) {
+        console.log(e.target);
+    });
+</script>
