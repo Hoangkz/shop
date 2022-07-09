@@ -21,6 +21,7 @@ router.delete('/:id/permanentlyDelete', itemController.permanentlyDelete);
 router.delete('/:id', itemController.delete);
 
 
+router.get('/:loai/show', itemController.showList);
 router.get('/:id', itemController.show);
 
 module.exports = router;

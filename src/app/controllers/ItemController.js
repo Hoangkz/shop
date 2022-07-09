@@ -9,11 +9,28 @@ class ItemController{
         // req.query.name
         // req.body.name
         // req.params.slug
-        // res.send("Khoá học: "+req.params.id+" "+ Item.findById(req.params.id));
+        // res.send("Item: "+req.params.id+" "+ Item.findById(req.params.id));
         Item.findOne({name:req.params.id})
             // res.json(req.params.id)
             .then(Item => {
                 return res.render('items/show',{item: MongooseToObject(Item)});
+            })
+            .catch(next) 
+    }
+
+    showList(req,res,next){
+        // req.query.name
+        // req.body.name
+        // req.params.slug
+        // res.send("Item: "+req.params.id+" "+ Item.findById(req.params.id));
+        // res.json(req.params.loai)
+        let a = req.params.loai;
+        // res.json(a)
+        Item.find({loai:a})
+            .then(Item => {
+                return res.render('items/showListItems',{
+                    item: mutipleMongooseToObject(Item)
+                });
             })
             .catch(next) 
     }
@@ -104,7 +121,6 @@ class ItemController{
                 break;  
             default:
                 res.json(req.body);
-
         }
 
     }

@@ -17,7 +17,9 @@ function route(app){
     app.use('/me', meRouter);
     app.use('/auth', authRouter);
 
+    app.use('/listItems', itemsRouter);
     app.use('/items', itemsRouter);
+
     app.use('/', siteRouter);
 
     // app.get('/', (req, res) => {
