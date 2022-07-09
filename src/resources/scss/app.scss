@@ -222,3 +222,18 @@ td a{
 .buttonGioHang1:focus,.buttonGioHang2:focus{
     outline: none;
 }
+
+.home-back{
+    text-align: center;
+    text-decoration: none;
+    font-size: 1.6rem;
+    color: #fe6433;
+    font-weight: 500;
+    align-items: center;
+}
+.auth-header{
+    margin-top: 2px;
+}
+.auth-link-home:hover{
+    opacity: 0.8;
+}

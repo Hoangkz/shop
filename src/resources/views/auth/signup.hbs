@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dalziel</title>
+    <link rel="stylesheet" href="/css/app.css">
     <link rel="stylesheet" href="/css/base.css">
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/fonts/css/all.min.css">
@@ -18,6 +19,12 @@
         <div class="modal__body">
             <div class="auth-form">
                 <div class="auth-form__container">
+                    <div class="container d-flex"  style="align-items: center;text-align: center;margin-bottom:16px">
+                            <a href="/" class="auth-link-home" style="text-decoration: none;">
+                                <i class="fa-solid fa-bag-shopping" style="color: #fe6433; font-size:48px"></i>
+                                <h1 class="auth-header" style="color: #fe6433;">Dalziel</h1>
+                            </a>                   
+                        </div>
                     <div class="auth-form-form">
                         <div class="auth-form__header">
                             <h3 class="auth-form__heading">
@@ -45,7 +52,7 @@
                         </div>
                     </div>
                     <div class="auth-form__controls">
-                        <button id="goBack" class="btn btn--normal auth-form__controls--back" type="submit">Trở lại</button>
+                        <button id="goBack" class="btn btn--normal auth-form__controls--back">Trở lại</button>
                         <button class="btn btn--primary hover" type="submit">Đăng nhập</button>
                     </div>
                 </div>
@@ -69,10 +76,15 @@
     </div>
 </body>
 </html>
+<form method="GET" id="home"></form>
 
 <script>
     let goback = document.getElementById("goBack");
-    goback.addEventListener("submit", function(e) {
-        console.log(e.target);
-    });
+    console.log(goback)
+    let home = document.getElementById("home")
+    console.log(home)
+    goback.onclick =function(e) {
+        home.action = '/'
+        home.submit()
+    };
 </script>
