@@ -16,6 +16,7 @@ app.use(morgan('combined'))
 
 // lấy file tĩnh
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public/favicon.ico')));
 
 //template engine
 app.engine('hbs',handlebars.engine({
