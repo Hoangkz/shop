@@ -4,7 +4,7 @@ const app = express()
 const port = process.env.PORT ||3000
 const handlebars = require('express-handlebars');
 const path = require('path');
-
+const favicon = require('serve-favicon');
 // 
 const methodOverride = require('method-Override')
 
@@ -16,7 +16,7 @@ app.use(morgan('combined'))
 
 // lấy file tĩnh
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, 'public/favicon.ico')));
+app.use(favicon(__dirname +'public/favicon.ico'));
 
 //template engine
 app.engine('hbs',handlebars.engine({
