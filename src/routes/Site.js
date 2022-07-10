@@ -7,7 +7,7 @@ const router = express.Router();
 const sitescontroller = require('../app/controllers/SitesController');
 
 //sitescontroller.index
-router.get("/search", sitescontroller.search);
+// router.get("/search", sitescontroller.search);
 
 router.get("/", sitescontroller.index);
 module.exports = router;

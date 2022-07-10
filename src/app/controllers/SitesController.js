@@ -25,9 +25,9 @@ class SitesController{
             // })
     }
      // [get] /search
-     search(req, res){
-        res.render('search')
-    }
+    //  search(req, res){
+    //     res.render('search')
+    // }
 
 
 

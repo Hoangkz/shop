@@ -125,6 +125,30 @@ class ItemController{
 
     }
 
+    posts(req, res,next) {
+        let search = req.query.q
+        // let data = Item.filter((item)=>{
+        //     item.name.toLowerCase().indexOf(search.toLowerCase())
+        // })
+        // res.json(search)
+        // Item.find({ name: /\.search/  } )
+        //     .then(Item => {
+        //         return res.render('items/search',{
+        //                 item: mutipleMongooseToObject(Item)
+        //             });
+        //     })
+        //     .catch(()=> res.redirect('back')) 
+       
+            const query = { $text: { $search: search } };
+
+            Item.find({name:query})
+                .then(Item => {
+                    return res.render('items/search',{
+                            item: mutipleMongooseToObject(Item)
+                        });
+                })
+                .catch(()=> res.redirect('back')) 
+    }
 }
 
 module.exports = new ItemController();
