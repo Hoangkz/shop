@@ -43,10 +43,11 @@ li{
     font-size: 0.9rem;
 }
 
-.hover:hover,.nav-link a:hover{
+.nav-link a:hover{
     color: rgba(255, 255, 255, 0.432);   
     text-decoration: none;
 }
+
 .left-60{
     left: 88px;
 }
@@ -63,6 +64,9 @@ li{
     border: 2px solid rgb(225, 219, 219);
 }
 
+.para-text:hover{
+    opacity: 0.6;
+}
 .card-body{
     height: 48px;
 }

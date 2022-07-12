@@ -1,6 +1,7 @@
 
 const Item = require('../modals/Item');
 const {MongooseToObject, mutipleMongooseToObject} = require('../../util/mongoose');
+const {mongooseToSearch} = require('../../util/mongoseSearch')
 class ItemController{
 
     // [get] /items /: slug
@@ -12,8 +13,8 @@ class ItemController{
         // res.send("Item: "+req.params.id+" "+ Item.findById(req.params.id));
         Item.findOne({name:req.params.id})
             // res.json(req.params.id)
-            .then(Item => {
-                return res.render('items/show',{item: MongooseToObject(Item)});
+            .then(item => {
+                return res.render('items/show',{item: MongooseToObject(item)});
             })
             .catch(next) 
     }
@@ -27,9 +28,9 @@ class ItemController{
         let a = req.params.loai;
         // res.json(a)
         Item.find({loai:a})
-            .then(Item => {
+            .then(item => {
                 return res.render('items/showListItems',{
-                    item: mutipleMongooseToObject(Item)
+                    item: mutipleMongooseToObject(item)
                 });
             })
             .catch(next) 
@@ -125,30 +126,18 @@ class ItemController{
 
     }
 
-    posts(req, res,next) {
+    search(req, res,next) {
         let search = req.query.q
-        // let data = Item.filter((item)=>{
-        //     item.name.toLowerCase().indexOf(search.toLowerCase())
-        // })
-        // res.json(search)
-        // Item.find({ name: /\.search/  } )
-        //     .then(Item => {
-        //         return res.render('items/search',{
-        //                 item: mutipleMongooseToObject(Item)
-        //             });
-        //     })
-        //     .catch(()=> res.redirect('back')) 
-       
-            const query = { $text: { $search: search } };
-
-            Item.find({name:query})
-                .then(Item => {
-                    return res.render('items/search',{
-                            item: mutipleMongooseToObject(Item)
-                        });
+            Item.find({})
+                .then(item => {
+                    console.log(item)
+                    // return res.json({item: mutipleMongooseToObject(item)});
+                    let findSearch = mongooseToSearch(item,search)
+                    // console.log(findSearch);
+                    return res.render('items/search',{item : mutipleMongooseToObject(findSearch)});
+                    // return res.json({item : mongooseToSearch(item,search)})
                 })
                 .catch(()=> res.redirect('back')) 
     }
 }
-
 module.exports = new ItemController();

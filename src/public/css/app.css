@@ -35,7 +35,7 @@ li {
   text-decoration: none;
   font-size: 0.9rem; }
 
-.hover:hover, .nav-link a:hover {
+.nav-link a:hover {
   color: rgba(255, 255, 255, 0.432);
   text-decoration: none; }
 
@@ -51,6 +51,9 @@ li {
 
 .danhmuchover:hover {
   border: 2px solid #e1dbdb; }
+
+.para-text:hover {
+  opacity: 0.6; }
 
 .card-body {
   height: 48px; }

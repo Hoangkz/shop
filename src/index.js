@@ -25,7 +25,6 @@ app.engine('hbs',handlebars.engine({
         // các function sử dụng
         // hàm sum dùng tính tổng 2 số 
         sum: (a,b) => (a+b),
-
     }
   }));
 app.set('view engine', 'hbs');
