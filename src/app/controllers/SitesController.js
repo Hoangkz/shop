@@ -1,19 +1,19 @@
 
-const Course = require('../modals/Item');
+const Item = require('../modals/Item');
 const {mutipleMongooseToObject} = require('../../util/mongoose')
 class SitesController{
 
     // [get] /home
     index(req, res, next){
         //promise
-        Course.find({})
-            .then(courses =>{
+        Item.find({})
+            .then(items =>{
                 res.render("home",{
-                    courses: mutipleMongooseToObject(courses)
+                    items: mutipleMongooseToObject(items)
                 })
             })
             .catch(next);
-
+        
         //callbacks
             // Course.find({},function(err, courses){
             //     if(!err) {
@@ -28,10 +28,7 @@ class SitesController{
     //  search(req, res){
     //     res.render('search')
     // }
-
-
-
-
+    
 }
 
 module.exports = new SitesController();

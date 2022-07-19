@@ -22,6 +22,7 @@ function route(app){
 
     app.use('/listItems', itemsRouter);
     app.use('/search', itemsRouter);
+    app.use('/danhsachItem', itemsRouter);
     app.use('/items', itemsRouter);
 
     app.use('/', siteRouter);

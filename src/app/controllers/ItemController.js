@@ -2,6 +2,9 @@
 const Item = require('../modals/Item');
 const {MongooseToObject, mutipleMongooseToObject} = require('../../util/mongoose');
 const {mongooseToSearch} = require('../../util/mongoseSearch')
+const Suggestion = require('search-suggestion') ;
+const { render } = require('node-sass');
+
 class ItemController{
 
     // [get] /items /: slug
@@ -128,16 +131,27 @@ class ItemController{
 
     search(req, res,next) {
         let search = req.query.q
-            Item.find({})
+               Item.find({})
                 .then(item => {
-                    console.log(item)
-                    // return res.json({item: mutipleMongooseToObject(item)});
-                    let findSearch = mongooseToSearch(item,search)
-                    // console.log(findSearch);
-                    return res.render('items/search',{item : mutipleMongooseToObject(findSearch)});
-                    // return res.json({item : mongooseToSearch(item,search)})
+                    if (search != ""){
+                        // return res.json({item: mutipleMongooseToObject(item)});
+                        let findSearch = mongooseToSearch(item,search)
+                        // console.log(findSearch);
+                        return res.render('items/search',{item : mutipleMongooseToObject(findSearch)});
+                        // return res.json({item : mongooseToSearch(item,search)})
+                    }
+                    else{
+                        return res.redirect('back')
+                    }
                 })
                 .catch(()=> res.redirect('back')) 
+    }
+    listItems(req, res, next) {
+        Item.find({})
+            .then(item => {
+                return res.json(mutipleMongooseToObject(item));
+            })
+            .catch(()=> res.redirect('back'))
     }
 }
 module.exports = new ItemController();
