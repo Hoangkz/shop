@@ -37,13 +37,13 @@
                         </div>
                         <div class="auth-form__form">
                             <div class="auth-form__group">
-                                <input type="text" class="auth-form__input" placeholder="Tên Email">
+                                <input type="email" id="email" class="auth-form__input" name="email"placeholder="Tên Email"pattern=".+@globex\.com" size="30" >
                             </div>
                             <div class="auth-form__group">
-                                <input type="text" class="auth-form__input" placeholder="Mật khẩu">
+                                <input class="auth-form__input" placeholder="Mật khẩu" type="password">
                             </div>
                             <div class="auth-form__group">
-                                <input type="text" class="auth-form__input" placeholder="Nhập lại mật khẩu">
+                                <input class="auth-form__input" placeholder="Nhập lại mật khẩu"type="password">
                             </div>
                         </div>
     
@@ -57,7 +57,7 @@
                         </div>
                         <div class="auth-form__controls">
                             <button id="goBack" class="btn btn--normal auth-form__controls--back" >Trở lại</button>
-                            <button class="btn btn--primary para-text">Đăng ký</button>
+                            <button class="btn btn--primary para-text"id="signup">Đăng ký</button>
                         </div>
                     </div>
     
@@ -79,12 +79,20 @@
 </body>
 </html>
 
+<script>
+    let signup = document.getElementById("signup");
+    signup.onclick = function(e){
+        let signup_get = document.getElementById("signup_get");
+    }
+</script>
+
 <form method="GET" id="home"></form>
+<form method="GET" id="signup_get"></form>
 
 <script>
     let goback = document.getElementById("goBack");
     let home = document.getElementById("home")
-    goback.onclick =function(e) {
+    goback.submit =function(e) {
         home.action = '/'
         home.submit()
     };
