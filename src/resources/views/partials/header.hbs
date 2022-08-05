@@ -85,7 +85,7 @@
         .then(function (posts){
             var htmls = posts.map((post)=>{
                 return `<li class="li-suggestion para-suggestion suggestion-hover">
-                    <a href="/items/${post.name}" class="textcolor-black a-suggestion" style="display:block; text-decoration:none">${post.name}</a>
+                    <a href="/items/${post}" class="textcolor-black a-suggestion" style="display:block; text-decoration:none">${post}</a>
                 </li>`
 
             }).join("");

@@ -1,9 +1,6 @@
 
 const Item = require('../modals/Item');
-const {MongooseToObject, mutipleMongooseToObject} = require('../../util/mongoose');
-const {mongooseToSearch} = require('../../util/mongoseSearch')
-const Suggestion = require('search-suggestion') ;
-const { render } = require('node-sass');
+const {MongooseToObject, mutipleMongooseToObject,mongooseToGetLish} = require('../../util/mongoose');
 
 class ItemController{
 
@@ -130,26 +127,28 @@ class ItemController{
     }
 
     search(req, res,next) {
+        
         let search = req.query.q
-               Item.find({})
-                .then(item => {
-                    if (search != ""){
-                        // return res.json({item: mutipleMongooseToObject(item)});
-                        let findSearch = mongooseToSearch(item,search)
-                        // console.log(findSearch);
-                        return res.render('items/search',{item : mutipleMongooseToObject(findSearch)});
-                        // return res.json({item : mongooseToSearch(item,search)})
-                    }
-                    else{
-                        return res.redirect('back')
-                    }
-                })
-                .catch(()=> res.redirect('back')) 
+        let search2 = req.query.q.charAt(0).toUpperCase() + req.query.q.slice(1)
+        
+        Item.find({$or:[{name:{$regex: search}},{name:{$regex: search2}}]})
+        .then(item => {
+            if (search != ""){
+                // return res.json({item: mutipleMongooseToObject(item)});
+                return res.render('items/search',{item : mutipleMongooseToObject(item)});
+            }
+            else{
+                return res.redirect('back')
+            }
+        })
+        .catch(()=> res.redirect('back')) 
     }
+
     listItems(req, res, next) {
-        Item.find({})
+        Item.find()
             .then(item => {
-                return res.json(mutipleMongooseToObject(item));
+                return res.json(mongooseToGetLish(item));
+                // return res.send(item);
             })
             .catch(()=> res.redirect('back'))
     }

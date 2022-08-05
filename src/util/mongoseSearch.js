@@ -7,5 +7,4 @@ module.exports = {
                 }
             })
     }
-    // mongooseToSearch: function toSearch(mongo
 }

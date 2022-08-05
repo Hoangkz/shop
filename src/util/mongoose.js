@@ -5,4 +5,7 @@ module.exports = {
     MongooseToObject: function(mongoose) {
         return mongoose? mongoose.toObject():mongoose
     },
+    mongooseToGetLish:function (mongooses) {
+        return mongooses.map(mongoose=>mongoose.toObject().name);
+    }
 }
