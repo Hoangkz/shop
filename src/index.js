@@ -4,12 +4,17 @@ const app = express()
 const port = process.env.PORT ||3000
 const handlebars = require('express-handlebars');
 const path = require('path');
+var session = require('express-session')
 // const favicon = require('favicon');
 // 
 const methodOverride = require('method-Override')
 
-
-
+app.use(session({
+  secret: 'keyboard cat',
+  resave: true,
+  saveUninitialized: true,
+  cookie: { secure: true }
+}))
 
 //HTTP logger
 app.use(morgan('combined'))
