@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-let link ="mongodb+srv://hoang:GouIxy969gPx450t@cluster0.glxu3.mongodb.net/Dalziel?retryWrites=true&w=majority"
+let link ="mongodb+srv://hoang:111@cluster0.glxu3.mongodb.net/Dalziel?retryWrites=true&w=majority"
 async function connect(){
     try {
         await mongoose.connect(link,{
