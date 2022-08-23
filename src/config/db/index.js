@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
-
+let link ="mongodb+srv://hoang:GouIxy969gPx450t@cluster0.glxu3.mongodb.net/Dalziel?retryWrites=true&w=majority"
 async function connect(){
     try {
-        await mongoose.connect('mongodb://localhost:27017/App_Web',{
+        await mongoose.connect(link,{
             useNewUrlParser: true,
             useUnifiedTopology: true
         })
