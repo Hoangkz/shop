@@ -83,43 +83,43 @@ route(app);
 //   // console.log(req.query.q);
 //   res.render('news');
 // })
-app.set((req,res,next)=>{
-  try {
-      let token = req.cookies.token
-      let idUser = jwt.verify(token,"mk")
-      user.findOne({_id: idUser})
-      .then(data => {
-          if(data){
-              console.log(data);
-              data={
-                        username: data.username,
-                        role: data.role,
-                        avatar: data.avatar,
-                        tell: data.tell,
-                        extname: data.email,
-                    }
-              res.data = data
-              // res.render("home",{
-              //     data:{
-              //         username: data.username,
-              //         role: data.role,
-              //         avatar: data.avatar,
-              //         tell: data.tell,
-              //         extname: data.email,
-              //     }
-              // })            
-          }
-          else{
-              res.render("home")
-          }
-      })
-      .catch(error=>{
-          res.json("sai")
-      })  
-  } catch (error) {
-      res.render("home")
-  }   
-})
+// app.set((req,res,next)=>{
+//   try {
+//       let token = req.cookies.token
+//       let idUser = jwt.verify(token,"mk")
+//       user.findOne({_id: idUser})
+//       .then(data => {
+//           if(data){
+//               console.log(data);
+//               data={
+//                         username: data.username,
+//                         role: data.role,
+//                         avatar: data.avatar,
+//                         tell: data.tell,
+//                         extname: data.email,
+//                     }
+//               res.data = data
+//               // res.render("home",{
+//               //     data:{
+//               //         username: data.username,
+//               //         role: data.role,
+//               //         avatar: data.avatar,
+//               //         tell: data.tell,
+//               //         extname: data.email,
+//               //     }
+//               // })            
+//           }
+//           else{
+//               res.render("home")
+//           }
+//       })
+//       .catch(error=>{
+//           res.json("sai")
+//       })  
+//   } catch (error) {
+//       res.render("home")
+//   }   
+// })
 
 const db = require('./config/db')
 db.connect();
