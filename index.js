@@ -16,13 +16,13 @@ const cookieParser = require('cookie-parser')
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(cookieParser())
-const user = require('./app/modals/user')
-app.use(session({
-  secret: 'keyboard cat',
-  resave: true,
-  saveUninitialized: true,
-  cookie: { secure: true }
-}))
+const user = require('./src/app/modals/user')
+// app.use(session({
+//   secret: 'keyboard cat',
+//   resave: true,
+//   saveUninitialized: true,
+//   cookie: { secure: true }
+// }))
 
 //HTTP logger
 app.use(morgan('combined'))
@@ -57,7 +57,7 @@ app.use(methodOverride('_method'))
 
 
     // khởi tạo tuyến đường
-const route = require('./routes');
+const route = require('./src/routes');
 const { homedir } = require('os');
 route(app);
 // home, search, contact các file chung để vào file site
@@ -121,7 +121,7 @@ route(app);
 //   }   
 // })
 
-const db = require('./config/db')
+const db = require('./src/config/db')
 db.connect();
 app.listen(port, () => {
   console.log(`App listening on http://localhost:${port}`)
