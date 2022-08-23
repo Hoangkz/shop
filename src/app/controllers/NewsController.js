@@ -1,22 +1,22 @@
-// const Course = require('../modals/Item');
-// const jwt = require('jsonwebtoken');
-// const user = require('../modals/user')
-// const {mutipleMongooseToObject} = require('../../util/mongoose')
+const Course = require('../modals/Item');
+const jwt = require('jsonwebtoken');
+const user = require('../modals/user')
+const {mutipleMongooseToObject} = require('../../util/mongoose')
 
-// class NewsController{
+class NewsController{
 
-//     // [get] /news
-//     index(req, res){
-//         res.render('news')
-//     }
+    // [get] /news
+    index(req, res){
+        res.render('news')
+    }
 
-//     show(req,res){
-//         res.send("news show")
+    show(req,res){
+        res.send("news show")
 
-//     }
+    }
 
 
 
-// }
+}
 
-// module.exports = new NewsController();
+module.exports = new NewsController();
