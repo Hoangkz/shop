@@ -7,9 +7,12 @@ const slug = require('mongoose-slug-generator');
 const mongooseDelete = require('mongoose-delete');
 
 const User = new Schema({
-  name: {type: String, required: true},
+  username: {type: String, required: true},
   password: {type: String,required: true},
   email: {type: String},
+  avatar : {type: String},
+  tell :{type: Number},
+  role: {type: Number, default:1},
 },{
   timestamps: true,
 });

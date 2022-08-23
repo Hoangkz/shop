@@ -1,5 +1,7 @@
 
 const Item = require('../modals/Item');
+const jwt = require('jsonwebtoken');
+const user = require('../modals/user');
 const {mutipleMongooseToObject} = require('../../util/mongoose')
 class SitesController{
 
@@ -9,7 +11,8 @@ class SitesController{
         Item.find({})
             .then(items =>{
                 res.render("home",{
-                    items: mutipleMongooseToObject(items)
+                    items: mutipleMongooseToObject(items),
+                    data: res.data
                 })
             })
             .catch(next);

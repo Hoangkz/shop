@@ -4,11 +4,19 @@ const app = express()
 const port = process.env.PORT ||3000
 const handlebars = require('express-handlebars');
 const path = require('path');
-var session = require('express-session')
+const bodyParser = require('body-parser')
+
+const session = require('express-session')
 // const favicon = require('favicon');
 // 
 const methodOverride = require('method-Override')
+const jwt = require('jsonwebtoken');
+const cookieParser = require('cookie-parser') 
 
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+app.use(cookieParser())
+const user = require('./app/modals/user')
 app.use(session({
   secret: 'keyboard cat',
   resave: true,
@@ -55,6 +63,7 @@ route(app);
 // home, search, contact các file chung để vào file site
 
 
+
 // app.get('/', (req, res) => {
 //   res.render('home');
 // })
@@ -74,7 +83,43 @@ route(app);
 //   // console.log(req.query.q);
 //   res.render('news');
 // })
-
+app.set((req,res,next)=>{
+  try {
+      let token = req.cookies.token
+      let idUser = jwt.verify(token,"mk")
+      user.findOne({_id: idUser})
+      .then(data => {
+          if(data){
+              console.log(data);
+              data={
+                        username: data.username,
+                        role: data.role,
+                        avatar: data.avatar,
+                        tell: data.tell,
+                        extname: data.email,
+                    }
+              res.data = data
+              // res.render("home",{
+              //     data:{
+              //         username: data.username,
+              //         role: data.role,
+              //         avatar: data.avatar,
+              //         tell: data.tell,
+              //         extname: data.email,
+              //     }
+              // })            
+          }
+          else{
+              res.render("home")
+          }
+      })
+      .catch(error=>{
+          res.json("sai")
+      })  
+  } catch (error) {
+      res.render("home")
+  }   
+})
 
 const db = require('./config/db')
 db.connect();

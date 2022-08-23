@@ -20,16 +20,17 @@
             </nav>
             <nav class="navbar navbar-expand-lg left-60">
                 <div class="collapse navbar-collapse form-Search ml-4" id="navbarSupportedContent">
-                    <ul class="navbar-nav mr-auto">
+                    <ul id="navUser" class="navbar-nav mr-auto">
                         <li class="nav-item active">
                             <a class="nav-link hover" href="/">Thông báo <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item active nav-link hover">Hỗ trợ</li>
-                        <li class="nav-item active nav-link hover">
-                            <a class="" href="/auth/signup">Đăng ký</a>
-                        </li>
-                        <li class="nav-item active nav-link hover">
-                            <a class="" href="/auth/login">Đăng nhập</a>
+                        <li id="liUserName" class="nav-item active displayNone" >
+                            <a id="aUserName" class="hover" href="/">{{data.username}}</a>
+                            <div id="headerUserName" class="header__notify">
+
+                            </div>
+                            <a id="aRole" class="displayNone" href="/">{{data.role}}</a>
                         </li>
                     </ul>
                 </div>
@@ -62,13 +63,113 @@
     </div>      
 </header>
 <style>
+    .header__notify{
+        position: absolute;
+        width: 200px;
+        right: 10%;
+        top: 80%;
+        background-color: white;
+        border: 1px solid #d3d3d3;
+        transform-origin:  calc(100% - 30px) top ;
+        -moz-animation: headerNotifyGrowth ease-in .25s;
+        -o-animation: headerNotifyGrowth ease-in .25s;
+        -ms-animation: headerNotifyGrowth ease-in .25s;
+        -webkit-animation: headerNotifyGrowth ease-in .25s;
+        animation: headerNotifyGrowth ease-in .25s;
+        will-change: opacity, transform;
+        display: none;
+        padding: 0;
+    }
+    .header__notify-list{
+        padding: 0;
+    }
+    #aUserName:first-letter {
+        text-transform: capitalize
+    }
+    #aUserName{
+        text-decoration: none;
+
+    }
+
+    .header__notify::before{
+        content: '';
+        border-width: 11px 24px;
+        border-style: solid;
+        border-color: transparent transparent white transparent;
+        position: absolute;
+        right: 10px;
+        top: -22px;
+    }
+    .header__notify::after{
+        content: '';
+        position: absolute;
+        width: 86px;
+        height: 30px;
+        right: -1px;
+        top: -20px;
+    }
+    .nav-link, .nav-link a {
+        color: white;
+        text-decoration: none;
+        font-size: 0.9rem; }
+
+    .nav-link a:hover {
+        color: rgba(255, 255, 255, 0.432);
+        text-decoration: none; 
+    }
+    @keyframes headerNotifyGrowth{
+        from{
+            opacity: 0;
+            transform: scale(0);
+        }
+        to{
+            opacity: 1;
+            transform: scale(1);
+        }
+
+    }
+    #liUserName:hover .header__notify{
+        display: block;
+    }
+    .header__notify-link{
+        display: flex;
+        text-decoration: none;
+        color: black;
+        font-size: 1rem; 
+        padding: 6px 20px;
+        margin: 0;
+        z-index: 100;
+    }
+
+    .header__notify-item:hover {
+        background-color: #ebebeb;
+
+    }
+    .header__notify-link:hover{
+        text-decoration: none;
+        color: black;
+    }
+</style>
+<style>
     .displayNone{
         display: none;
     }
+    
+    #aUserName{
+        font-weight: 700;
+        font-size: 100%;
+        margin: 0px 24px;
+        padding:0px;
+        cursor: pointer;
+    }
+    #liUserName::first-letter{
+        text-transform: capitalize
+    }
+    #liUserName{
+        margin-top: 6px;
+    }
 </style>
-<script>
-    let buttonSearch = document.getElementById("button-search")
-</script>
+
 
 <script>
     let formSearch = document.getElementById("id-form-search")
@@ -77,16 +178,19 @@
     let liSuggestion = document.getElementsByClassName("li-suggestion")
     let aSuggestion = document.getElementsByClassName("a-suggestion")
     let data = 'http://localhost:3000/danhsachItem/danhsachItem/items';
-
     fetch(data)
         .then(function (response){
             return response.json();
         })
         .then(function (posts){
+            {{!-- console.log(posts) --}}
             var htmls = posts.map((post)=>{
                 return `<li class="li-suggestion para-suggestion suggestion-hover">
-                    <a href="/items/${post}" class="textcolor-black a-suggestion" style="display:block; text-decoration:none">${post}</a>
-                </li>`
+                            <a href="/items/${post.name}" class="textcolor-black a-suggestion" style="display:block; text-decoration:none">
+                                <img src="${post.img}" alt=""style="width:50px;height:50px">
+                                ${post.name}
+                            </a>
+                        </li>`
 
             }).join("");
             ulSuggestion.innerHTML=htmls
@@ -118,4 +222,89 @@
         }
     }
 
+</script>
+<script src="/js/jquery-3.6.0.min.js"></script>
+<style>
+    .displayNone{
+        display: none;
+    }
+</style>
+<script>
+    let navUser =document.getElementById("navUser")
+    let liUserName =document.getElementById("liUserName")
+    let aUserName =document.getElementById("aUserName")
+    if(aUserName.innerText===""){
+        liUserName.classList.add("displayNone")
+        navUser.innerHTML = navUser.innerHTML+'<li class="nav-item active nav-link hover"><a class="" href="/auth/signup">Đăng ký</a></li><li class="nav-item active nav-link hover"><a class="" href="/auth/login">Đăng nhập</a></li>'
+    }
+    else{
+        liUserName.classList.remove("displayNone")
+    }
+    
+</script>
+<form id="formLogOut" action="/auth/logout" method="POST"></form>
+
+<script>
+    let aRole=document.getElementById("aRole");
+    let headerUserName = document.getElementById("headerUserName");
+    let role ={{data.role}}
+    if (role===1){
+        headerUserName.innerHTML=`<div class="header__notify-header" ></div>
+                                <ul class="header__notify-list">
+                                   <li class="header__notify-item header__notify-item--viewed">
+                                       <a href="/auth/user" class="header__notify-link">Tài khoản</a>
+                                    </li>
+                                    <li class="header__notify-item header__notify-item--viewed">
+                                       <a href="" class="header__notify-link">Đơn mua</a>
+                                    </li>
+                                    <li class="header__notify-item header__notify-item--viewed">
+                                       <p id="logout" class="header__notify-link" style="cursor: pointer;">Đăng xuất</p>
+                                    </li>
+                                </ul>   `
+    }
+    else if(role===2){
+        headerUserName.innerHTML=`<div class="header__notify-header" ></div>
+                                <ul class="header__notify-list">
+                                   <li class="header__notify-item header__notify-item--viewed">
+                                       <a href="/auth/user" class="header__notify-link">Tài khoản</a>
+                                    </li>
+                                    <li class="header__notify-item header__notify-item--viewed">
+                                       <a href="" class="header__notify-link">Đơn giao hàng</a>
+                                    </li>
+                                    <li class="header__notify-item header__notify-item--viewed">
+                                       <a href="" class="header__notify-link">Đơn mua</a>
+                                    </li>
+                                    <li class="header__notify-item header__notify-item--viewed">
+                                       <p id="logout" class="header__notify-link" style="cursor: pointer;">Đăng xuất</p>
+                                    </li>
+                                </ul>   `
+    }
+    else if(role===3){
+        headerUserName.innerHTML=`<div class="header__notify-header" ></div>
+                                    <ul class="header__notify-list">
+                                        <li class="header__notify-item header__notify-item--viewed">
+                                            <a href="/auth/user" class="header__notify-link">Tài khoản</a>
+                                        </li>
+                                        <li class="header__notify-item header__notify-item--viewed">
+                                            <a href="" class="header__notify-link">Đơn mua</a>
+                                        </li>
+                                        <li class="header__notify-item header__notify-item--viewed">
+                                            <a href="" class="header__notify-link">Đơn giao hàng</a>
+                                        </li>
+                                        <li class="header__notify-item header__notify-item--viewed">
+                                            <a href="" class="header__notify-link">Danh sách UserName</a>
+                                        </li>
+                                        <li class="header__notify-item header__notify-item--viewed">
+                                            <a href="" class="header__notify-link">Danh sách sản phẩm</a>
+                                        </li>
+                                        <li class="header__notify-item header__notify-item--viewed">
+                                            <p id="logout" class="header__notify-link" style="cursor: pointer;">Đăng xuất</p>
+                                        </li>
+                                    </ul>`  
+    }
+    let formLogOut = document.getElementById("formLogOut")
+    let logout =document.getElementById("logout");
+    logout.onclick = function(e) {
+        formLogOut.submit()
+    }
 </script>

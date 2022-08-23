@@ -14,7 +14,10 @@ class ItemController{
         Item.findOne({name:req.params.id})
             // res.json(req.params.id)
             .then(item => {
-                return res.render('items/show',{item: MongooseToObject(item)});
+                return res.render('items/show',{
+                    item: MongooseToObject(item),
+                    data: res.data
+                });
             })
             .catch(next) 
     }
@@ -30,7 +33,8 @@ class ItemController{
         Item.find({loai:a})
             .then(item => {
                 return res.render('items/showListItems',{
-                    item: mutipleMongooseToObject(item)
+                    item: mutipleMongooseToObject(item),
+                    data: res.data
                 });
             })
             .catch(next) 
@@ -40,7 +44,8 @@ class ItemController{
     edit(req,res, next){
         Item.findById(req.params.id)
             .then(item => res.render('items/edit',{
-                item: MongooseToObject(item)
+                item: MongooseToObject(item),
+                data: res.data
             }))
             .catch(next)
         
@@ -48,7 +53,9 @@ class ItemController{
     //GET /items/store (create)
     create(req,res, next){
         
-        return res.render('items/create');
+        return res.render('items/create',{
+            data: res.data
+        });
         
     }
 
@@ -135,7 +142,10 @@ class ItemController{
         .then(item => {
             if (search != ""){
                 // return res.json({item: mutipleMongooseToObject(item)});
-                return res.render('items/search',{item : mutipleMongooseToObject(item)});
+                return res.render('items/search',{
+                    item : mutipleMongooseToObject(item),
+                    data: res.data
+                });
             }
             else{
                 return res.redirect('back')

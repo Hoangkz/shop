@@ -1,4 +1,5 @@
 const newsRouter =require("./news")
+const getUser = require("../app/controllers/checkuser")
 const itemsRouter =require("./items")
 const authRouter =require("./auth")
 
@@ -17,6 +18,7 @@ function route(app){
     //     res.render('search');
     // })
     app.use('/news', newsRouter);
+
     app.use('/me', meRouter);
     app.use('/auth', authRouter);
 
@@ -24,8 +26,7 @@ function route(app){
     app.use('/search', itemsRouter);
     app.use('/danhsachItem', itemsRouter);
     app.use('/items', itemsRouter);
-
-    app.use('/', siteRouter);
+    app.use('/',getUser.getuser, siteRouter);
 
     // app.get('/', (req, res) => {
     //     // console.log(req.query.q);

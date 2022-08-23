@@ -1,3 +1,5 @@
+
+
 module.exports = {
     mutipleMongooseToObject: function(mongooses) {
         return mongooses.map(mongoose=>mongoose.toObject())
@@ -6,6 +8,12 @@ module.exports = {
         return mongoose? mongoose.toObject():mongoose
     },
     mongooseToGetLish:function (mongooses) {
-        return mongooses.map(mongoose=>mongoose.toObject().name);
-    }
+        return mongooses.map(mongoose=>{
+            return {
+                name:mongoose.toObject().name,
+                img:mongoose.toObject().img
+            }
+        });
+    },
+
 }

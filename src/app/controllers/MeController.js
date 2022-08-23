@@ -1,6 +1,8 @@
 
 const Course = require('../modals/Item');
 const {mutipleMongooseToObject} = require('../../util/mongoose');
+const jwt = require('jsonwebtoken');
+const user = require('../modals/user')
 class MeController{
 
     // [get] /me/stored/courses /: slug
@@ -13,7 +15,6 @@ class MeController{
                     deleteCount,
                     courses: mutipleMongooseToObject(courses)
                 })
-
             )
             .catch(next);
 
