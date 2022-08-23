@@ -1,9 +1,10 @@
 // const newsRouter =require("./news")
-const getUser = require("../app/controllers/checkuser")
+// const getUser = require("../app/controllers/checkuser")
 // const itemsRouter =require("./items")
 // const authRouter =require("./auth")
 
-const siteRouter =require("./site")
+// const siteRouter =require("./site")
+const newa = require("./news")
 
 // const meRouter =require("./me")
 
@@ -18,7 +19,10 @@ function route(app){
     // app.use('/search', itemsRouter);
     // app.use('/danhsachItem', itemsRouter);
     // app.use('/items', itemsRouter);
-    app.use('/',getUser.getuser, siteRouter);
+    // app.use('/',getUser.getuser, siteRouter);
+
+        app.use('/', newa);
+
 
 
 
