@@ -122,6 +122,8 @@ route(app);
 
 // const db = require('./config/db')
 // db.connect();
+require('dotenv').config()
+
 app.listen(port, () => {
   console.log(`App listening on http://localhost:${port}`)
 })
